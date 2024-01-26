@@ -1,8 +1,8 @@
 import React from "react";
-const PlayButton = ()=>{
+const PlayButton = (props)=>{
     return(
         <div>
-            <button className="play-btn">Play Again</button>
+            <button className="play-btn" onClick={props.click}>Play Again</button>
         </div>
     )
 }

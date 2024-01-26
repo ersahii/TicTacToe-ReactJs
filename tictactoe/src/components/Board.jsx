@@ -6,6 +6,9 @@ const Board = ()=>{
     const [isTurnX , setTurnX] = useState(true);
     // click handler funtion 
     const handleClick = (index)=>{
+        if(state[index] !==null){
+            return;
+        }
         const copyState = [...state];
         copyState[index] = isTurnX ? "X" : "0";
         setState(copyState);
@@ -35,12 +38,15 @@ const Board = ()=>{
         return false;
 };
 const isWinner = checkWinner();
-
+const handleReset = ()=>{
+    setState(Array(9).fill(null));
+}
     return(
         isWinner ? <div className="Winner-container">
-            <h1> {isWinner} won the game </h1>
-            <PlayButton/>
-        </div> :
+            <h1> {isWinner} player won the game </h1>
+            <PlayButton click = {()=>handleReset()}/>
+        </div> :<>
+            <h1 style={{width: "160px", margin: "auto" ,}}>Turn of : {isTurnX ? "X" : "0"}</h1>
         <div className="board-container">
             <div className="board-row">
                 <Square value = {state[0]} onclick ={()=>{handleClick(0);}}/>
@@ -58,6 +64,7 @@ const isWinner = checkWinner();
                 <Square value = {state[8]} onclick ={()=>{handleClick(8);}}/>
             </div>
         </div>
+        </>
     )
 }
 export default Board;
