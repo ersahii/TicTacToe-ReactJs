@@ -1,12 +1,46 @@
 import React , { useState} from "react";
 import Square from "./Square";
+import PlayButton from "./PlayButton";
 const Board = ()=>{
     const [state , setState ] = useState(Array(9).fill(null));
-
+    const [isTurnX , setTurnX] = useState(true);
     // click handler funtion 
     const handleClick = (index)=>{
-    }
+        const copyState = [...state];
+        copyState[index] = isTurnX ? "X" : "0";
+        setState(copyState);
+        setTurnX(!isTurnX);
+    };
+    // checking winner 
+    const checkWinner =()=>{
+        const winnerLogic = [
+            // winner logic for rows
+            [0 , 1 , 2] , 
+            [3 , 4 , 5] , 
+            [6 , 7 , 8] , 
+            // winner logic in columns 
+            [0 , 3 , 6] , 
+            [1 , 4 , 7] , 
+            [2 , 5 , 8] , 
+            // winner logic in Diagonals 
+            [0 , 4 , 8] , 
+            [2 , 4 , 6]  
+        ];
+        for (let logic of winnerLogic){
+            const [a , b , c ]=logic;
+            if(state[a] !== null && state[a] === state[b] && state[a] === state[c]){
+                return state[a]
+            }
+        }
+        return false;
+};
+const isWinner = checkWinner();
+
     return(
+        isWinner ? <div className="Winner-container">
+            <h1> {isWinner} won the game </h1>
+            <PlayButton/>
+        </div> :
         <div className="board-container">
             <div className="board-row">
                 <Square value = {state[0]} onclick ={()=>{handleClick(0);}}/>

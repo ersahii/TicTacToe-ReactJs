@@ -14,3 +14,16 @@
 .board-container{
   margin: 50px;
 }
+.play-btn{
+  border: none;
+  background-color: mediumseagreen;
+  font-weight: bold;
+  border-radius:  20px;
+  height: 40px;
+  width: 120px;
+  margin: auto;
+}
+.Winner-container{
+  width: 400px;
+  margin: 50px auto;
+}
